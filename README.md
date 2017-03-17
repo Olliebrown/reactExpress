@@ -1,8 +1,9 @@
 # reactExpress
 Template for a react + express web application.
 
-Setting up a new project that utilizes React.js is an involved process. This is a quick template
-that is designed to take care of that so you can get right to building your web app.
+Setting up a new project that utilizes React.js is an involved process. This is a quick
+template that is designed to take care of that so you can get right to building your web
+app.
 
 ## Features
 - Express.js integrated for main server to handle backend and static file server for client
@@ -16,6 +17,6 @@ that is designed to take care of that so you can get right to building your web 
 ## Usage
 Fork this repo, do an npm install, and build away!
 
-It's a good idea to edit the package.json with your project details. You will also need to edit
-the remote-sync config file for your specific server if you intend to use that. Make sure to
-install eslit and eslint-plugin-react locally for the best atom experience.
+It's a good idea to edit the package.json with your project details. You will also need
+to edit the remote-sync config file for your specific server if you intend to use that.
+Make sure to install eslit and eslint-plugin-react locally for the best atom experience.

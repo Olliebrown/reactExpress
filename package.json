@@ -4,6 +4,10 @@
   "description": "A template for web apps using React and Express",
   "main": "app.js",
   "scripts": {
+    "dev": "npm run dev-nodemon & npm run dev-webpack & npm run dev-browsersync",
+    "dev-nodemon": "nodemon --exec babel-node server.js --ignore public/",
+    "dev-webpack": "webpack -wd",
+    "dev-browsersync": "browser-sync start --config browser-sync.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
