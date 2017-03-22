@@ -1,7 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import MyComponent from './components/MyComponent.jsx';
+
+const element = (
+  <div>
+    <MyComponent asPageHeader message="Hello from ReactApp.jsx" />
+    <MyComponent message="This is the second header" />
+  </div>
+);
+
 ReactDOM.render(
-  React.createComponent('div', null, 'Hello Julianne!'),
-  document.getElementById('app-root')
+  element, document.getElementById('app-root')
 );
