@@ -79,7 +79,7 @@ fi
 match="'0.0.0.0',"
 insert="  browserSyncPort: 9000,"
 
-sed -i "s/$match/$match\n$insert/" $configfile
+sed -i "s/$match/$match\n$insert/" $configFile
 
 printf "3) Installing Browser Sync as Dev Config *******\n\n"
 npm install -D browser-sync json-loader babel-core
@@ -97,6 +97,7 @@ ENDFILE
 sed -e "/$lead/,/$tail/{ /$lead/{p; r $tempFile
         }; /$tail/p; d }" package.json > newPackage.json
 mv newPackage.json package.json
+rm $tempFile
 
 printf "5) Restarting NGINX server ****************\n\n"
 /etc/init.d/nginx restart
