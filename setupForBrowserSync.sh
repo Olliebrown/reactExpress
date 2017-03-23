@@ -84,5 +84,19 @@ sed -i "s/$match/$match\n$insert/" $configfile
 printf "3) Installing Browser Sync as Dev Config *******\n\n"
 npm install -D browser-sync json-loader babel-core
 
-printf "4) Restarting NGINX server ****************\n\n"
+printf "4) Updating npm script commands *********\n\n"
+lead='  "scripts": {'
+tail='  "test":'
+tempFile='tempConfig.js'
+cat > $tempFile << 'ENDFILE'
+    "dev": "npm run dev-nodemon & npm run dev-webpack & npm run dev-browsersync",
+    "dev-nodemon": "nodemon --exec babel-node server.js --ignore public/",
+    "dev-webpack": "webpack -wd",
+    "dev-browsersync": "browser-sync start --config browser-sync.js",
+ENDFILE
+sed -e "/$lead/,/$tail/{ /$lead/{p; r $tempFile
+        }; /$tail/p; d }" package.json > newPackage.json
+mv newPackage.json package.json
+
+printf "5) Restarting NGINX server ****************\n\n"
 /etc/init.d/nginx restart
