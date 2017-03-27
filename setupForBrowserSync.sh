@@ -15,6 +15,9 @@ if [ ! -e $configFile ]; then
     exit
 fi
 
+# Figure out the normal user name
+normUser=`ls -ld ./ | awk '{print $3}'`
+
 # Write out dev configuration for NGINX
 printf "1) Installing development port/site for NGINX *******\n\n"
 DEVSite="/etc/nginx/sites-available/dev"
@@ -60,7 +63,13 @@ location / {
 ENDOFFILE
 fi
 
-printf "2) Update Project Config for Browser Sync *******\n\n"
+printf "2) Restarting NGINX server ****************\n\n"
+/etc/init.d/nginx restart
+
+printf "3) Update Project Config for Browser Sync *******\n\n"
+# Stop being the super user
+su $normUser
+
 BSyncConfig='./browser-sync.js'
 if [ ! -e $BSyncConfig ]; then
   cat > $BSyncConfig << 'ENDOFFILE'
@@ -81,10 +90,10 @@ insert="  browserSyncPort: 9000,"
 
 sed -i "s/$match/$match\n$insert/" $configFile
 
-printf "3) Installing Browser Sync as Dev Config *******\n\n"
+printf "4) Installing Browser Sync as Dev Config *******\n\n"
 npm install -D browser-sync json-loader babel-core
 
-printf "4) Updating npm script commands *********\n\n"
+printf "5) Updating npm script commands *********\n\n"
 lead='  "scripts": {'
 tail='  "test":'
 tempFile='tempConfig.js'
@@ -98,6 +107,3 @@ sed -e "/$lead/,/$tail/{ /$lead/{p; r $tempFile
         }; /$tail/p; d }" package.json > newPackage.json
 mv newPackage.json package.json
 rm $tempFile
-
-printf "5) Restarting NGINX server ****************\n\n"
-/etc/init.d/nginx restart
