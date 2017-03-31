@@ -2,7 +2,7 @@ module.exports = {
   entry: './app/ReactApp.jsx',
   output: {
     path: __dirname + '/public',
-    filename: 'clientBundle.js'
+    filename: 'reactBundle.js'
   },
   module: {
     loaders: [

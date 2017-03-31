@@ -2,7 +2,7 @@
 const env = process.env;
 
 // Setup the port and host from environment vars or defulats
-export default {
+module.exports = {
   port: env.PORT || 8000,
   host: env.HOST || '0.0.0.0',
   browserSyncPort: 9000,
